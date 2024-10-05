@@ -1,0 +1,25 @@
+VarStatement
+	VarDefinition: define i
+		NumberStatement: number 0
+VarStatement
+	VarDeclaration: declare x
+WhileStatement
+	IfStatement
+		PrintStatement 
+			MulStatement 
+				IdStatement: variable i
+				NumberStatement: number 9
+		AssignStatement to x
+			MulStatement 
+				NumberStatement: number 5
+				IdStatement: variable x
+		AssignStatement to x
+			NumberStatement: number 3
+		PrintStatement 
+			IdStatement: variable x
+	AssignStatement to i
+		AddStatement 
+			IdStatement: variable i
+			NumberStatement: number 1
+PrintStatement 
+	IdStatement: variable x
