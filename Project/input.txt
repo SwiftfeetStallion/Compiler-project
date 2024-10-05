@@ -1,7 +1,7 @@
 int main() {
   int i = 0;
-  int x;
-  //int x = 9;
+  //int x;
+  int x = 9;
   while (i < 3) {
     if (i > 1) {
       print(i * 9);

@@ -2,5 +2,6 @@ mkdir build
 cd build
 cmake ../
 make
-./Program
+./Program_ir
 cd ../
+clang++ output.ll

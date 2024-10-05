@@ -12,11 +12,12 @@
 class  GrammarLexer : public antlr4::Lexer {
 public:
   enum {
-    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, EVALOP = 6, TYPE = 7, 
-    VOID = 8, PRINT = 9, IF = 10, WHILE = 11, ELSE = 12, ELIF = 13, ADD = 14, 
-    SUB = 15, MUL = 16, DIV = 17, AND = 18, OR = 19, NOT = 20, ASSIGN = 21, 
-    EQUAL = 22, NO_EQUAL = 23, LESS = 24, LESSEQ = 25, GREATER = 26, GREATEREQ = 27, 
-    SEMICOLON = 28, ID = 29, NUM = 30, LINECOMMENT = 31, WS = 32
+    T__0 = 1, T__1 = 2, T__2 = 3, T__3 = 4, T__4 = 5, T__5 = 6, T__6 = 7, 
+    TYPE = 8, EVALOP = 9, VOID = 10, PRINT = 11, IF = 12, WHILE = 13, ELSE = 14, 
+    ELIF = 15, ADD = 16, SUB = 17, MUL = 18, DIV = 19, AND = 20, OR = 21, 
+    NOT = 22, ASSIGN = 23, EQUAL = 24, NO_EQUAL = 25, LESS = 26, LESSEQ = 27, 
+    GREATER = 28, GREATEREQ = 29, SEMICOLON = 30, ID = 31, NUM = 32, LINECOMMENT = 33, 
+    WS = 34
   };
 
   explicit GrammarLexer(antlr4::CharStream *input);

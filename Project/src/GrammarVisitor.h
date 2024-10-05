@@ -21,6 +21,8 @@ public:
    */
     virtual std::any visitStart(GrammarParser::StartContext *context) = 0;
 
+    virtual std::any visitMain_body(GrammarParser::Main_bodyContext *context) = 0;
+
     virtual std::any visitIf_stmt(GrammarParser::If_stmtContext *context) = 0;
 
     virtual std::any visitWhile_stmt(GrammarParser::While_stmtContext *context) = 0;
@@ -33,7 +35,21 @@ public:
 
     virtual std::any visitAriphm_stmt(GrammarParser::Ariphm_stmtContext *context) = 0;
 
+    virtual std::any visitBool_stmt(GrammarParser::Bool_stmtContext *context) = 0;
+
     virtual std::any visitPrint_stmt(GrammarParser::Print_stmtContext *context) = 0;
+
+    virtual std::any visitCall_stmt(GrammarParser::Call_stmtContext *context) = 0;
+
+    virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *context) = 0;
+
+    virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *context) = 0;
+
+    virtual std::any visitProc_decl_stmt(GrammarParser::Proc_decl_stmtContext *context) = 0;
+
+    virtual std::any visitFunc_decl_stmt(GrammarParser::Func_decl_stmtContext *context) = 0;
+
+    virtual std::any visitFunc_call_stmt(GrammarParser::Func_call_stmtContext *context) = 0;
 
     virtual std::any visitVar_decl_stmt(GrammarParser::Var_decl_stmtContext *context) = 0;
 

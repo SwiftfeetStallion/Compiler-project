@@ -19,6 +19,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitMain_body(GrammarParser::Main_bodyContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitIf_stmt(GrammarParser::If_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -43,7 +47,35 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitBool_stmt(GrammarParser::Bool_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitPrint_stmt(GrammarParser::Print_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitCall_stmt(GrammarParser::Call_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitProc_decl_stmt(GrammarParser::Proc_decl_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitFunc_decl_stmt(GrammarParser::Func_decl_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitFunc_call_stmt(GrammarParser::Func_call_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
 
