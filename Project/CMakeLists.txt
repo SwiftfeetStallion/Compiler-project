@@ -23,6 +23,7 @@ add_executable(
     src/GrammarLexer.cpp 
     src/GrammarParser.cpp 
     src/IRVisitor.cpp
+    src/Table.cpp
     main.cpp
 )
 

@@ -1,69 +1,83 @@
 ; ModuleID = 'file'
 source_filename = "file"
 
+@k = global i32 8
+@x = global i32 9
+@z = global i32 0
+
 define i32 @main() {
 entry:
-  %0 = alloca i32, align 4
-  store i32 0, i32* %0, align 4
-  %1 = alloca i32, align 4
-  store i32 9, i32* %1, align 4
-  br label %condition
-
-condition:                                        ; preds = %end1, %entry
-  %2 = load i32, i32* %0, align 4
-  %3 = icmp slt i32 %2, 3
-  br i1 %3, label %loop, label %end
-
-loop:                                             ; preds = %condition
-  br label %cond_0
-
-end:                                              ; preds = %condition
-  %4 = load i32, i32* %1, align 4
-  %5 = alloca [4 x i8], align 1
-  store [4 x i8] c"%d\0A\00", [4 x i8]* %5, align 1
-  %6 = bitcast [4 x i8]* %5 to i8*
-  %7 = call i32 (i8*, ...) @printf(i8* %6, i32 %4)
+  %0 = call i32 @"global##f"(i32 2, i32 3)
+  %1 = alloca [4 x i8], align 1
+  store [4 x i8] c"%d\0A\00", [4 x i8]* %1, align 1
+  %2 = bitcast [4 x i8]* %1 to i8*
+  %3 = call i32 (i8*, ...) @printf(i8* %2, i32 %0)
+  %4 = alloca i32, align 4
+  store i32 5, i32* %4, align 4
+  %5 = load i32, i32* @x, align 4
+  %6 = alloca [4 x i8], align 1
+  store [4 x i8] c"%d\0A\00", [4 x i8]* %6, align 1
+  %7 = bitcast [4 x i8]* %6 to i8*
+  %8 = call i32 (i8*, ...) @printf(i8* %7, i32 %5)
   ret i32 0
-
-cond_0:                                           ; preds = %loop
-  %8 = load i32, i32* %0, align 4
-  %9 = icmp sgt i32 %8, 1
-  br i1 %9, label %body_0, label %cond_1
-
-body_0:                                           ; preds = %cond_0
-  %10 = load i32, i32* %0, align 4
-  %11 = mul i32 %10, 9
-  %12 = alloca [4 x i8], align 1
-  store [4 x i8] c"%d\0A\00", [4 x i8]* %12, align 1
-  %13 = bitcast [4 x i8]* %12 to i8*
-  %14 = call i32 (i8*, ...) @printf(i8* %13, i32 %11)
-  %15 = load i32, i32* %1, align 4
-  %16 = mul i32 5, %15
-  store i32 %16, i32* %1, align 4
-  br label %end1
-
-cond_1:                                           ; preds = %cond_0
-  %17 = load i32, i32* %0, align 4
-  %18 = icmp eq i32 %17, 0
-  br i1 %18, label %body_1, label %else
-
-body_1:                                           ; preds = %cond_1
-  store i32 3, i32* %1, align 4
-  %19 = load i32, i32* %1, align 4
-  %20 = alloca [4 x i8], align 1
-  store [4 x i8] c"%d\0A\00", [4 x i8]* %20, align 1
-  %21 = bitcast [4 x i8]* %20 to i8*
-  %22 = call i32 (i8*, ...) @printf(i8* %21, i32 %19)
-  br label %end1
-
-else:                                             ; preds = %cond_1
-  br label %end1
-
-end1:                                             ; preds = %else, %body_1, %body_0
-  %23 = load i32, i32* %0, align 4
-  %24 = add i32 %23, 1
-  store i32 %24, i32* %0, align 4
-  br label %condition
 }
 
 declare i32 @printf(i8*, ...)
+
+define i32 @"global##f"(i32 %x, i32 %y) {
+"global##f##entry":
+  %0 = alloca i32, align 4
+  store i32 %x, i32* %0, align 4
+  %1 = alloca i32, align 4
+  store i32 %y, i32* %1, align 4
+  %2 = load i32, i32* %0, align 4
+  %3 = load i32, i32* %1, align 4
+  %4 = call i32 @"global##foo"(i32 %2, i32 %3)
+  ret i32 %4
+}
+
+define void @"global##i"(i32 %y) {
+"global##i##entry":
+  %0 = alloca i32, align 4
+  store i32 %y, i32* %0, align 4
+  %1 = load i32, i32* %0, align 4
+  %2 = alloca [4 x i8], align 1
+  store [4 x i8] c"%d\0A\00", [4 x i8]* %2, align 1
+  %3 = bitcast [4 x i8]* %2 to i8*
+  %4 = call i32 (i8*, ...) @printf(i8* %3, i32 %1)
+  ret void
+}
+
+define i32 @"global##foo"(i32 %x, i32 %y) {
+"global##foo##entry":
+  %0 = alloca i32, align 4
+  store i32 %x, i32* %0, align 4
+  %1 = alloca i32, align 4
+  store i32 %y, i32* %1, align 4
+  %2 = alloca i32, align 4
+  store i32 0, i32* %2, align 4
+  br label %cond_0
+
+cond_0:                                           ; preds = %"global##foo##entry"
+  %3 = load i32, i32* @k, align 4
+  %4 = icmp slt i32 %3, 0
+  br i1 %4, label %body_0, label %else
+
+body_0:                                           ; preds = %cond_0
+  %5 = load i32, i32* %0, align 4
+  %6 = load i32, i32* %1, align 4
+  %7 = add i32 %5, %6
+  store i32 %7, i32* %2, align 4
+  br label %end
+
+else:                                             ; preds = %cond_0
+  %8 = load i32, i32* %0, align 4
+  %9 = load i32, i32* %1, align 4
+  %10 = sub i32 %8, %9
+  store i32 %10, i32* %2, align 4
+  br label %end
+
+end:                                              ; preds = %else, %body_0
+  %11 = load i32, i32* %2, align 4
+  ret i32 %11
+}

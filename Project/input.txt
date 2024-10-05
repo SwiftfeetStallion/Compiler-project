@@ -1,17 +1,36 @@
-int main() {
-  int i = 0;
-  //int x;
-  int x = 9;
-  while (i < 3) {
-    if (i > 1) {
-      print(i * 9);
-      x = 5*x;
-    } else if (i == 0) {
-      x = 3;
-      print(x);
-    } else {}
-    i = i + 1;
-  }
-  //y-2;
-  print(x);
+
+int f(int x, int y);
+
+int k = 8;
+int x = 9;
+
+void i(int y) {
+  print(y);
 }
+
+int main() {
+  print(f(2, 3));
+  int i = 5;
+  print(x);
+  
+}
+
+
+int foo(int x, int y);
+
+
+int f(int x, int y) {
+  return foo(x, y);
+}
+ 
+int z; 
+int foo(int x, int y) {
+  int res;
+  if (k < 0) {
+    res = x + y;
+  } else {
+    res = x - y;
+  }
+  return res;
+}
+

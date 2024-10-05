@@ -1,8 +1,8 @@
 grammar Grammar;
 
-program: (func_definition_stmt | func_declaration_stmt)*
+program: (global_var_stmt | func_definition_stmt | func_declaration_stmt)*
 main
-(func_definition_stmt | func_declaration_stmt)* 
+(global_var_stmt | func_definition_stmt | func_declaration_stmt | global_var_stmt)*
 EOF # start;
 
 main: 'int main()'
@@ -24,31 +24,33 @@ sentence: IF '(' bool_expr ')' '{'
 |'{'
 (sentence)*
 '}'  # scope_stmt
-| ID ASSIGN (ariphm_expr | bool_expr) SEMICOLON # assign_stmt
+| ID ASSIGN (ariphm_expr | bool_expr | function_call_stmt) SEMICOLON # assign_stmt
 | var_declaration_stmt SEMICOLON # var_stmt
 | ariphm_expr SEMICOLON # ariphm_stmt
 | bool_expr SEMICOLON # bool_stmt
-| PRINT '(' (ariphm_expr | bool_expr) ')' SEMICOLON # print_stmt
+| PRINT '(' (ariphm_expr | bool_expr | function_call_stmt) ')' SEMICOLON # print_stmt
 | function_call_stmt SEMICOLON # call_stmt
 ;
 
+func_declaration_stmt: VOID ID '(' ((TYPE ID ',')* TYPE ID)? ')' SEMICOLON # proc_decl_stmt
+| TYPE ID '(' ((TYPE ID ',')* TYPE ID)? ')' SEMICOLON # func_decl_stmt;
 
 func_definition_stmt: VOID ID '(' ((TYPE ID ',')* TYPE ID)? ')' '{'
 sentence*
 '}' # proc_def_stmt
 | TYPE ID '(' ((TYPE ID ',')* TYPE ID)? ')' '{'
 sentence*
-'return' (ariphm_expr | bool_expr) SEMICOLON
+'return' (ariphm_expr | bool_expr | function_call_stmt) SEMICOLON
 '}' # func_def_stmt
 ;
 
-func_declaration_stmt: VOID ID '(' ((TYPE ID ',')* TYPE ID)? ')' SEMICOLON # proc_decl_stmt
-| TYPE ID '(' ((TYPE ID ',')* TYPE ID)? ')' SEMICOLON # func_decl_stmt;
-
-function_call_stmt: ID '(' (((ID | NUM) ',')* (ID | NUM))? ')' # func_call_stmt;
+function_call_stmt: ID '(' ((ariphm_expr ',')* ariphm_expr)? ')' # func_call_stmt;
 
 var_declaration_stmt: TYPE ID  # var_decl_stmt
-| TYPE ID ASSIGN (ariphm_expr | bool_expr) # var_def_stmt;
+| TYPE ID ASSIGN (ariphm_expr | bool_expr | function_call_stmt) # var_def_stmt;
+
+global_var_stmt: TYPE ID SEMICOLON # global_decl_stmt
+| TYPE ID ASSIGN NUM SEMICOLON #global_def_stmt;
 
 bool_expr: ariphm_expr EVALOP ariphm_expr # one_bool_stmt
 | NOT '(' bool_expr ')' # not_stmt
@@ -63,8 +65,6 @@ ariphm_expr: ariphm_expr op=(MUL | DIV) ariphm_expr # mul_div_stmt
 | '(' ariphm_expr ')' # par_stmt;
 
 TYPE : 'int';
-//ARGS : ((TYPE ID ',')* TYPE ID);
-//PASSED_ARGS : ((ID | NUM) ',')* (ID | NUM);
 EVALOP: EQUAL | NO_EQUAL | LESS | LESSEQ | GREATER | GREATEREQ;
 VOID : 'void';
 PRINT : 'print';

@@ -59,19 +59,19 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual std::any visitProc_decl_stmt(GrammarParser::Proc_decl_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
 
   virtual std::any visitFunc_decl_stmt(GrammarParser::Func_decl_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -84,6 +84,14 @@ public:
   }
 
   virtual std::any visitVar_def_stmt(GrammarParser::Var_def_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitGlobal_decl_stmt(GrammarParser::Global_decl_stmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitGlobal_def_stmt(GrammarParser::Global_def_stmtContext *ctx) override {
     return visitChildren(ctx);
   }
 

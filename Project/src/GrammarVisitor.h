@@ -41,19 +41,23 @@ public:
 
     virtual std::any visitCall_stmt(GrammarParser::Call_stmtContext *context) = 0;
 
-    virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *context) = 0;
-
-    virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *context) = 0;
-
     virtual std::any visitProc_decl_stmt(GrammarParser::Proc_decl_stmtContext *context) = 0;
 
     virtual std::any visitFunc_decl_stmt(GrammarParser::Func_decl_stmtContext *context) = 0;
+
+    virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *context) = 0;
+
+    virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *context) = 0;
 
     virtual std::any visitFunc_call_stmt(GrammarParser::Func_call_stmtContext *context) = 0;
 
     virtual std::any visitVar_decl_stmt(GrammarParser::Var_decl_stmtContext *context) = 0;
 
     virtual std::any visitVar_def_stmt(GrammarParser::Var_def_stmtContext *context) = 0;
+
+    virtual std::any visitGlobal_decl_stmt(GrammarParser::Global_decl_stmtContext *context) = 0;
+
+    virtual std::any visitGlobal_def_stmt(GrammarParser::Global_def_stmtContext *context) = 0;
 
     virtual std::any visitPar_bool_stmt(GrammarParser::Par_bool_stmtContext *context) = 0;
 

@@ -1,20 +1,17 @@
 #pragma once
 #include "GrammarBaseVisitor.h"
 #include "GrammarParser.h"
-#include <llvm/IR/Value.h>
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/Instructions.h>
+#include "Table.hpp"
+#include "ErrorTypes.hpp"
 
 class IRVisitor : public GrammarBaseVisitor {
 private:
-  struct Variable {
-    llvm::Value* value;
-    llvm::AllocaInst* ptr;
-  };
   std::vector<std::string> semantic_errors;
-  std::map<std::string, Variable> variables;
+  Table symbol_table;
   std::string filename;
   llvm::LLVMContext context;
   llvm::IRBuilder<> builder;
@@ -24,6 +21,7 @@ private:
   llvm::Function* main_function;
   llvm::Function* print_function;
   llvm::IntegerType* int_type;
+  llvm::Type* void_type;
 
 
 public:
@@ -34,6 +32,9 @@ public:
   void DeclarePrint();
   bool ContainsErrors();
   void PrintErrors();
+  bool CheckArgs(const std::vector<antlr4::tree::TerminalNode*>& args);
+  void CreateFunction(const std::vector<antlr4::tree::TerminalNode*>& args, const std::string& ret_type);
+  virtual std::any visitStart(GrammarParser::StartContext *ctx) override;
   virtual std::any visitMain_body(GrammarParser::Main_bodyContext *ctx) override;
   virtual std::any visitNumber(GrammarParser::NumberContext *ctx) override;
   virtual std::any visitVariable(GrammarParser::VariableContext *ctx) override;
@@ -53,6 +54,14 @@ public:
   virtual std::any visitIf_stmt(GrammarParser::If_stmtContext *ctx) override;
   virtual std::any visitWhile_stmt(GrammarParser::While_stmtContext *ctx) override;
   virtual std::any visitAssign_stmt(GrammarParser::Assign_stmtContext *ctx) override;
+  virtual std::any visitScope_stmt(GrammarParser::Scope_stmtContext *ctx) override;
+  virtual std::any visitFunc_decl_stmt(GrammarParser::Func_decl_stmtContext *ctx) override;
+  virtual std::any visitProc_decl_stmt(GrammarParser::Proc_decl_stmtContext *ctx) override;
+  virtual std::any visitFunc_def_stmt(GrammarParser::Func_def_stmtContext *ctx) override;
+  virtual std::any visitProc_def_stmt(GrammarParser::Proc_def_stmtContext *ctx) override;
+  virtual std::any visitFunc_call_stmt(GrammarParser::Func_call_stmtContext *ctx) override;
+  virtual std::any visitGlobal_decl_stmt(GrammarParser::Global_decl_stmtContext *ctx) override;
+  virtual std::any visitGlobal_def_stmt(GrammarParser::Global_def_stmtContext *ctx) override;
 
   ~IRVisitor();
 };

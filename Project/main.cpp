@@ -42,6 +42,5 @@ int GenerateIr() {
 
 int main(int argc, char* argv[]) {
   if (GenerateIr() == 1) return 1;
-  
   return 0;
 }
