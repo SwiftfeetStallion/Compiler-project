@@ -3,7 +3,7 @@ grammar Grammar;
 program: 'int main()'
 '{'
   sentence*
-'}'
+'}' 
 EOF # start;
 
 sentence: IF '(' bool_expr ')' '{'
